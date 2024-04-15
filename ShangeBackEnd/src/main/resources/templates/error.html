@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Error</title>
+</head>
+<body>
+
+    <h1>Error</h1>
+    <p>Page not found. Please check the URL and try again.</p>
+    
+    <p th:text="${errorDetails}"> error message </p>
+
+    <a th:href="@{/logout}">Logout</a>
+
+</body>
+</html>

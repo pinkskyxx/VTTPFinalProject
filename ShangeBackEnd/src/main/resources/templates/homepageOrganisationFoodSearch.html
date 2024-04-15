@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>SHANGE - Home</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f9e8e2;
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 16px;
+        }
+
+        .container {
+            text-align: center;
+            margin: 20px;
+        }
+
+        h2 {
+            color: #ffab73;
+        }
+
+        .top-buttons {
+            display: flex;
+            background-color: #ffab73;
+            padding: 10px;
+            justify-content: space-around;
+            width: 100%;
+        }
+
+        .top-buttons a {
+            color: white;
+            text-decoration: none;
+            font-size: 17px;
+        }
+
+        .search-bar {
+            margin-top: 20px;
+        }
+
+        form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            margin-right: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #ffab73;
+            color: white;
+        }
+
+        .event-selection {
+            margin-top: 20px;
+        }
+
+        input[type="checkbox"] {
+            margin-right: 5px;
+        }
+
+        .containerBox {
+            display: flex;
+            max-width: 1000px;
+            background-color: #fff;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .info-box {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .search-box {
+            flex: 0 0 500px;
+            max-width: 800px;
+            padding: 10px;
+            background-color: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="top-buttons">
+        <a href="/home">Home</a>
+        <a href="/create">Create Event</a>
+        <a href="/searchvolunteers">Search Volunteers</a>
+        <a href="/acceptvolunteers">Accept Volunteers</a>
+        <a href="/chat">Chat</a>
+        <a href="/profile">Profile</a>
+        <a href="/logout">Logout</a>
+    </div>
+
+    <div class="container">
+        <h2>SHANGE</h2>
+        <h2>Welcome back Organisation</h2>
+        <h2><span data-th-text="${regeventName}"></span></h2>
+        <h2><span data-th-text="${regeventDate}"></span></h2>
+
+        <div class="containerBox">
+            <form method="POST" th:action="@{/event/updateSaveRecipes}">
+                <div class="info-box">
+                    <h2>Search Results</h2>
+                    <p>Information goes here...</p>
+
+                    <div data-th-unless="${#lists.isEmpty(meal)}">
+                        <article data-th-each="n: ${meal}">
+                            <br>
+                            <div>
+                                Meal id: <i data-th-text="${n.idMeal}"></i>
+                            </div>
+                            <div>
+                                Meal: <i data-th-text="${n.strMeal}"></i>
+                            </div>
+                            <div>
+                                Instructions: <i data-th-text="${n.strInstructions}"></i>
+                            </div>
+                            <div>
+                                Category: <i data-th-text="${n.strCategory}"></i>
+                            </div>
+
+                            <div>
+                                <img data-th-src="${n.strMealThumb}" width="250px">
+                            </div>
+                            <div>
+                                Ingredient1: <i data-th-text="${n.strIngredient1}"></i>
+                            </div>
+                            <div>
+                                Ingredient2: <i data-th-text="${n.strIngredient2}"></i>
+                            </div>
+                            <div>
+                                Ingredient3: <i data-th-text="${n.strIngredient3}"></i>
+                            </div>
+                            <div>
+                                Ingredient4: <i data-th-text="${n.strIngredient4}"></i>
+                            </div>
+                            <div>
+                                Ingredient5: <i data-th-text="${n.strIngredient5}"></i>
+                            </div>
+                            <div>
+                                Measure1: <i data-th-text="${n.strMeasure1}"></i>
+                            </div>
+                            <div>
+                                Measure2: <i data-th-text="${n.strMeasure2}"></i>
+                            </div>
+                            <div>
+                                Measure3: <i data-th-text="${n.strMeasure3}"></i>
+                            </div>
+                            <div>
+                                Measure4: <i data-th-text="${n.strMeasure4}"></i>
+                            </div>
+                            <div>
+                                Measure5: <i data-th-text="${n.strMeasure5}"></i>
+                            </div>
+                            <div>
+                                Source article <a data-th-href="${n.strSource}" target="_blank">here</a>
+                            </div>
+                            <input type="checkbox" data-th-id="${n.idMeal}" data-th-name="selectedidMeal"
+                                data-th-value="${n.idMeal}" />save
+                        </article>
+                        <label for="dateOfFoodEvent" class="form-label">Date of food event</label>
+                        <input type="date" class="form-control" name="dateOfFoodEvent" required />
+                        <br>
+                        <div class="mb-3">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+            <div class="search-box">
+                <form method="POST" th:action="@{/api/searchRecipes}" target="_blank">
+                    <div class="mb-3">
+                        
+                    </div>
+                    <div class="mb-3">
+                        <button type="submit">Search By API</button>
+                    </div>
+                </form>
+                <form method="POST" th:action="@{/api/search/foodselected}" target="_blank">
+                    <div>
+                        <button type="submit">Search By meal name</button>
+                    </div>
+
+                    <div>
+                        <input type="text" class="form-control" id="searchName" name="searchName"
+                            placeholder="Enter meal name">
+                    </div>
+
+                </form>
+                <form method="POST" th:action="@{/event/getToSaveRecipes}">
+                    <div class="mb-3">
+                        
+                    </div>
+                    <div class="mb-3">
+                        <button type="submit">Search and save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <script>
+            function performSearch() {
+                alert("Performing search...");
+            }
+        </script>
+
+    </div>
+
+</body>
+
+</html>

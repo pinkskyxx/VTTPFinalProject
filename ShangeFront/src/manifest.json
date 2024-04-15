@@ -1,0 +1,28 @@
+{
+  "short_name": "ShangeFront",
+  "name": "Shange",
+  "icons": [
+    {
+      "src": "shange.ico",
+      "type": "image/x-icon",
+      "sizes": "128x128 64x64 32x32 24x24 16x16",
+      "purpose": "any"
+    },
+    {
+      "src": "shange.png",
+      "sizes": "3172x2696",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "scope": "/",
+  "orientation": "any",
+  "lang": "en",
+  "description": "Shange- A non profit organisation",
+  "categories": ["helping hand", "non profit organisation"],
+  "theme_color": "#000000",
+  "background_color": "#f9e8e2",
+  "prefer_related_applications": false,
+  "related_applications": []
+}

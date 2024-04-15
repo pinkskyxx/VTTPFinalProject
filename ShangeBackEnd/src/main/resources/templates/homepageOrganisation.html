@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>SHANGE - Home</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f9e8e2;
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 16px;
+        }
+
+        .container {
+            text-align: center;
+            margin: 20px;
+        }
+
+        h2 {
+            color: #ffab73;
+        }
+
+        .top-buttons {
+            display: flex;
+            background-color: #ffab73;
+            padding: 10px;
+            justify-content: space-around;
+            width: 100%;
+        }
+
+        .top-buttons a {
+            color: white;
+            text-decoration: none;
+            font-size: 17px;
+        }
+
+        .search-bar {
+            margin-top: 20px;
+        }
+
+        form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            margin-right: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+            align-items: center;
+        }
+
+        input[type="submit"] {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #ffab73;
+            color: white;
+        }
+
+        .event-selection {
+            margin-top: 20px;
+        }
+
+        input[type="checkbox"] {
+            margin-right: 5px;
+        }
+
+        .containerBox {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+        }
+        .redirect-label {
+            color: #ffab73;
+            font-family: 'Roboto', sans-serif;
+            font-size: 26px;
+            margin-right: 10px;
+        }
+        .redirect-button {
+            background-color: #ffab73; 
+            border: none; 
+            border-radius: 5px; 
+            padding: 10px 20px;
+            color: white;
+            cursor: pointer;
+        }
+        .redirect-button:hover {
+            background-color: #ffa066;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="top-buttons">
+        <a href="/home">Home</a>
+        <a href="/login/googleCheck">My Calendar</a>
+        <a href="/create">Create Event</a>
+        <a href="/searchvolunteers">Search Volunteers</a>
+        <a href="/acceptvolunteers">Accept Volunteers</a>
+        <!--a href="/chat">Chat</a-->
+        <a href="/#">Chat</a>
+
+        <a href="/profile">Profile</a>
+        <a href="/logout">Logout</a>
+    </div>
+
+    <div class="container">
+        <h2>SHANGE</h2>
+        <h2>Welcome back Organisation</h2>
+        <h2 style="display: none;"><span data-th-text="${myUserName}"></span>tty</h2>
+        <h2><span data-th-text="${regeventName}"></span></h2>
+        <h2><span data-th-text="${regeventDate}"></span></h2>
+        <br />
+        <div th:if="${not #strings.isEmpty(sessionGoogleCalendar)}">
+            <a href="/login/googleCheck">
+                <span class="redirect-label">Login in to google calendar to start your calendar add in feature.:</span>
+                <button class="redirect-button">Click here</button>
+            </a>
+        </div>
+        <br />
+        <div class="search-bar">
+            <form action="/event/SearchEventOrganisation" method="get">
+                <input type="text" name="query" placeholder="Search...">
+                <input type="submit" value="Search">
+            </form>
+        </div>
+
+        <div class="event-selection">
+            <label><input type="checkbox" name="ongoing"> Ongoing</label>
+            <label><input type="checkbox" name="past"> Past</label>
+        </div>
+
+        <div class="containerBox">
+            <div data-th-unless="${#lists.isEmpty(myEventDetails)}">
+                <article data-th-each="n: ${myEventDetails}">
+                    <br>
+                    
+                    <div>
+                        Organiser: <i data-th-text="${n.strUsername}"></i>
+                    </div>
+                    <div>
+                        Event Title: <i data-th-text="${n.strTitle}"></i>
+                    </div>
+                    <div>
+                        Event Type: <i data-th-text="${n.strEventtype}"></i>
+                    </div>
+                    <div>
+                        Event Description: <i data-th-text="${n.strDescription}"></i>
+                    </div>
+                    <div>
+                        Event Physical: <i data-th-text="${n.strPhysical}"></i>
+                    </div>
+                    <div>
+                        Event Online: <i data-th-text="${n.strOnline}"></i>
+                    </div>
+                    <div>
+                        Event Location: <i data-th-text="${n.strNorth}"></i>
+                        <i data-th-text="${n.strSouth}"></i>
+                        <i data-th-text="${n.strEast}"></i>
+                        <i data-th-text="${n.strWest}"></i>
+                        <i data-th-text="${n.strCentral}"></i>
+                    </div>
+
+                    <div>
+                        Recipe: <i data-th-text="${n.strSampleFood}"></i>
+                    </div>
+                    <div>
+                        <img data-th-src="${n.strSampleFoodSite1}" th:if="${n.strSampleFoodSite1 ne ''}" width="150px">
+
+                        <img data-th-src="${n.strSampleFoodSite2}" th:if="${n.strSampleFoodSite2 ne ''}" width="150px">
+
+                    </div>
+                    <div>
+                        From Date: <i data-th-text="${n.strEventFrom}"></i>
+                    </div>
+                    <div>
+                        To Date: <i data-th-text="${n.strEventTo}"></i>
+                    </div>
+                    <div>
+                        From Time: <i data-th-text="${n.strTimeFrom}"></i>
+                    </div>
+                    <div>
+                        To Time: <i data-th-text="${n.strTimeTo}"></i>
+                    </div>
+                    <div>
+                        Volunteers Registered: <i data-th-text="${n.strVolunteer}"></i>
+                    </div>
+                    <div>
+                        Image Uploaded:
+                        <br>
+                        
+                            <img th:if="${not #strings.isEmpty(n.strImage)}"
+                            th:src="${n.strImage}" width="250px" alt="Image">
+                    </div>
+                    <div>
+                        Event File:
+                        
+                        <a th:if="${not #strings.isEmpty(n.strFile)}"
+                        th:href="${n.strFile}" download>
+                        <i data-th-text="${n.strFile}"></i>
+                    </a>
+                    </div>
+                    <div>
+                        <form method="POST" th:action="@{/event/deleteEvent}">
+                            
+                            <input type="hidden" data-th-id="myeventId" data-th-name="myselecteddeleteID"
+                                data-th-value="${n.strEventId}" />
+                            <input type="hidden" data-th-id="myuserId"  data-th-name="myselectedUserID" data-th-value="${n.strUsername}" /> 
+                            <button type="submit">Delete My Event</button>
+
+                        </form>
+                    </div>
+                </article>
+            </div>
+        </div>
+        <div data-th-unless="${#lists.isEmpty(myInternalRequestStatus)}">
+            <div class="containerBoxExt">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Event Date</th>
+                            <th>Request Date</th>
+                            <th>Request</th>
+                            <th>Confirm</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody data-th-unless="${#lists.isEmpty(myInternalRequestStatus)}">
+                        <tr data-th-each="n : ${myInternalRequestStatus}">
+                            <td data-th-text="${n.title}"></td>
+                            <td data-th-text="${n.description}"></td>
+                            <td data-th-text="${n.eventDate}"></td>
+                            <td data-th-text="${n.requestDate}"></td>
+                            <td data-th-text="${n.request}"></td>
+                            <td data-th-text="${n.confirm}"></td>
+                            <td>
+                                
+                                <form method="POST" th:action="@{/event/insertRequestEventConfirm}">
+                                    <input type="hidden" name="eventall" th:value="${n.id}" />
+                                    
+                                    <button type="submit" th:disabled="${#strings.contains(n.confirm ?: '', myUserName)}">Confirm</button>
+
+
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>  
+        </div>
+        <div class="containerBox">
+            <div data-th-unless="${#lists.isEmpty(myVolunteerProfile)}">
+                <article data-th-each="n: ${myVolunteerProfile}">
+                    <br>
+
+                    <div>
+                        <!--img th:if="${not #strings.isEmpty(n.image)}"
+                            th:src="@{/Profile/{imageName}(imageName=${n.image})}" width="250px" alt="Image"-->
+                            
+                        <!-- <img th:if="${not #strings.isEmpty(base64Image)}" 
+                        th:src="'data:image/jpeg;base64,' + ${base64Image}" alt="Uploaded Image" width="250px"> -->
+                        <img th:if="${not #strings.isEmpty(n.image)}"
+                            th:src="${StrImageDisplay}" width="250px" alt="Image">
+                    </div>
+                    <div>
+                        Organisation Motto:<i data-th-text="${n.skills}"></i>
+                    </div>
+                    <div>
+                        Organisation Description:<i data-th-text="${n.availability}"></i>
+                    </div>
+                    <div>
+                        Organisation Contact Details and Location:<i data-th-text="${n.pastParticipation}"></i>
+                    </div>
+                    <div>
+                        clientId: <i data-th-text="${n.clientId}"></i>
+                    </div>
+                    <div>
+                        clientSecret: <i data-th-text="${n.clientSecret}"></i>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+    
+</body>
+
+</html>

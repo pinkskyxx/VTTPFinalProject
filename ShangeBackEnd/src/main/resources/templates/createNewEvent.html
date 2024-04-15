@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Create Event</title>
+    <style>
+        body {
+            background-color: #f9e8e2;
+            font-family: 'Roboto', sans-serif;
+            margin-top: 0px;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 16px;
+        }
+
+        .logo-container {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        .logo-container img {
+            width: 50px;
+        }
+
+        .container {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .top-buttons {
+            display: flex;
+            justify-content: space-around;
+            background-color: #ffab73;
+            padding: 10px;
+            width: 100%;
+        }
+
+        .top-buttons a {
+            color: white;
+            text-decoration: none;
+            font-size: 17px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .checkbox-group label {
+            margin-right: 20px;
+        }
+
+        .event-period {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .timeslot-group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .timeslot-group label {
+            margin-right: 10px;
+        }
+
+        .next-button {
+            margin-top: 20px;
+        }
+
+        .form-group {
+            display: inline-block;
+            margin-right: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="top-buttons">
+    <a href="/home">Home</a>
+    <a href="/login/googleCheck">My Calendar</a>
+    <a href="/create">Create Event</a>
+    <a href="/searchvolunteers">Search Volunteers</a>
+    <a href="/acceptvolunteers">Accept Volunteers</a>
+    <a href="/#">Chat</a>
+    <a href="/profile">Profile</a>
+    <a href="/logout">Logout</a>
+</div>
+
+<div class="container">
+    <h2 style="color: #ffab73;">Let's Create A New Event !</h2>
+    <h2 style="color: #ffab73;"><span data-th-text="${regeventName}"></span></h2>
+    <h2 style="color: #ffab73;"><span data-th-text="${regeventDate}"></span></h2>
+    <br />
+    <form action="/event/createEvent" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+        <div class="form-group">
+            <label for="category" style="color: #ffab73;font-size: 16px;">Categories:</label>
+            <div class="checkbox-group">
+                
+            <div class="form-check" required>
+                <input class="form-check-input" type="radio" id="oneTime" name="eventType" value="One-time Event" th:checked="${eventType eq 'One-time Event'}">
+                <label class="form-check-label" for="oneTime">One-time Event</label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="radio" id="recurring" name="eventType" value="Recurring Event" th:checked="${eventType eq 'Recurring Event'}">
+                <label class="form-check-label" for="recurring">Recurring Event</label>
+            </div>
+            
+        </div>
+
+        <br>
+        <div class="form-group">
+            <label for="title" style="color: #ffab73;">Title:</label>
+            <input type="text" class="form-control" id="title" name="title" required>
+        </div>
+
+        <br>
+        <div class="form-group">
+            <label style="color: #ffab73;">Description:</label>
+            <textarea class="form-control" id="description" name="description" rows="4" required></textarea>
+        </div>
+        
+        <div class="checkbox-group">
+            <label style="color: #ffab73;">Type:</label>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="typePhysical" name="typePhysical" value="Physical">
+                <label class="form-check-label" for="typePhysical">Physical</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="typeOnline" name="typeOnline" value="Online">
+                <label class="form-check-label" for="typeOnline">Online</label>
+            </div>
+        </div>
+        
+        
+        <div class="checkbox-group">
+            <label style="color: #ffab73;">Location:</label>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="locationNorth" name="locationNorth" value="North" th:checked="${northChecked}">
+                <label class="form-check-label" for="locationNorth">North</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="locationSouth" name="locationSouth" value="South" th:checked="${southChecked}">
+                <label class="form-check-label" for="locationSouth">South</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="locationEast" name="locationEast" value="East" th:checked="${eastChecked}">
+                <label class="form-check-label" for="locationEast">East</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="locationWest" name="locationWest" value="West" th:checked="${westChecked}">
+                <label class="form-check-label" for="locationWest">West</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="locationCentral" name="locationCentral" value="Central" th:checked="${centralChecked}">
+                <label class="form-check-label" for="locationCentral">Central</label>
+            </div>
+        </div>
+
+        <br>
+        <div class="form-group">
+            <label style="color: #ffab73;">Sample Idea of the Month:</label>
+            <a href="/Foodschedule" class="btn btn-warning">New Food Volunteering Ideas!</a>
+        </div>
+        <div>
+            <span data-th-text="${regeventFoodName}">Food ID: </span>
+        </div>
+        <div>
+            <div>
+                <img data-th-src="${strSampleFoodSite1}" th:if="${strSampleFoodSite1 ne ''}" width="50px">
+
+                <img data-th-src="${strSampleFoodSite2}" th:if="${strSampleFoodSite2 ne ''}" width="50px">
+
+            </div>
+        </div>
+       
+        <div class="form-group">
+            <label style="color: #ffab73;">Create quiz:</label>
+            <a href="/createquiz" class="btn btn-warning">Add Quiz</a>
+        </div>
+
+        <br>
+        <br>
+        <div class="form-group">
+            <label for="image" style="color: #ffab73;">Image Upload:</label>
+            <input type="file" class="form-control-file" id="image" name="image">
+        </div>
+        
+        <div class="form-group">
+            <label style="color: #ffab73;">File Attachment:</label>
+            <input type="file" class="form-control-file" id="file" name="file">
+        </div>
+        
+        <div class="event-period">
+            <label style="color: #ffab73;">Event Period:</label>
+            <label for="toDate">From:</label>
+            <input type="date" id="fromDate" name="fromDate" required>
+            <label for="toDate">To:</label>
+            <input type="date" id="toDate" name="toDate" required>
+        </div>
+
+        <div class="form-group">
+            <label style="color: #ffab73;">Timeslot:</label>
+            <div class="timeslot-group">
+        
+                <div class="form-group">
+                    <label for="fromTime">From:</label>
+                    <select class="form-control" id="fromTime" name="fromTime" required>
+                        
+                        <option value="" disabled selected>Select From Time</option>
+                        <option value="0800am">8am</option>
+                        <option value="0830am">8:30am</option>
+                        <option value="0900am">9am</option>
+                        <option value="0930am">9:30am</option>
+                        <option value="1000am">10am</option>
+                        <option value="1030am">10:30am</option>
+                        <option value="1100am">11am</option>
+                        <option value="1130am">11:30am</option>
+                        <option value="1200pm">12pm</option>
+                        <option value="1230pm">12:30pm</option>
+                        <option value="0100pm">1pm</option>
+                        <option value="0130pm">1:30pm</option>
+                        <option value="0200pm">2pm</option>
+                        <option value="0230pm">2:30pm</option>
+                        <option value="0300pm">3pm</option>
+                        <option value="0330pm">3:30pm</option>
+                        <option value="0400pm">4pm</option>
+                        <option value="0430pm">4:30pm</option>
+                        <option value="0500pm">5pm</option>
+                        <option value="0530pm">5:30pm</option>
+                        <option value="0600pm">6pm</option>
+                        <option value="0630pm">6:30pm</option>
+                        <option value="0700pm">7pm</option>
+                        <option value="0730pm">7:30pm</option>
+                        <option value="0800pm">8pm</option>
+                        <option value="0830pm">8:30pm</option>
+                        <option value="0900pm">9pm</option>
+                        <option value="0930pm">9:30pm</option>
+                        <option value="1000pm">10pm</option>
+                        <option value="1030pm">10:30pm</option>
+                    </select>
+                </div>
+        
+                <div class="form-group">
+                    <label for="toTime">To:</label>
+                    <select class="form-control" id="toTime" name="toTime" required>
+                       
+                        <option value="" disabled selected>Select To Time</option>
+                        <option value="0800am">8am</option>
+                        <option value="0830am">8:30am</option>
+                        <option value="0900am">9am</option>
+                        <option value="0930am">9:30am</option>
+                        <option value="1000am">10am</option>
+                        <option value="1030am">10:30am</option>
+                        <option value="1100am">11am</option>
+                        <option value="1130am">11:30am</option>
+                        <option value="1200pm">12pm</option>
+                        <option value="1230pm">12:30pm</option>
+                        <option value="0100pm">1pm</option>
+                        <option value="0130pm">1:30pm</option>
+                        <option value="0200pm">2pm</option>
+                        <option value="0230pm">2:30pm</option>
+                        <option value="0300pm">3pm</option>
+                        <option value="0330pm">3:30pm</option>
+                        <option value="0400pm">4pm</option>
+                        <option value="0430pm">4:30pm</option>
+                        <option value="0500pm">5pm</option>
+                        <option value="0530pm">5:30pm</option>
+                        <option value="0600pm">6pm</option>
+                        <option value="0630pm">6:30pm</option>
+                        <option value="0700pm">7pm</option>
+                        <option value="0730pm">7:30pm</option>
+                        <option value="0800pm">8pm</option>
+                        <option value="0830pm">8:30pm</option>
+                        <option value="0900pm">9pm</option>
+                        <option value="0930pm">9:30pm</option>
+                        <option value="1000pm">10pm</option>
+                        <option value="1030pm">10:30pm</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        
+        <br>
+        <div class="form-group">
+            <label style="color: #ffab73;">Select Volunteers:</label>
+            <a href="/searchvolunteers" class="btn btn-info">Select Volunteers</a>
+        </div>
+
+        <div class="next-button">
+            <button type="submit" style="background-color: #ffab73; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Confirm Event</button>
+        </div>
+    </form>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script>
+    function validateForm() {
+        var oneTimeChecked = document.getElementById("oneTime").checked;
+        var recurringChecked = document.getElementById("recurring").checked;
+
+        if (!oneTimeChecked && !recurringChecked) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Please select an event type.',
+            });
+            return false;
+        }
+        var locationNorthChecked = document.getElementById("locationNorth").checked;
+        var locationSouthChecked = document.getElementById("locationSouth").checked;
+        var locationEastChecked = document.getElementById("locationEast").checked;
+        var locationWestChecked = document.getElementById("locationWest").checked;
+        var locationCentralChecked = document.getElementById("locationCentral").checked;
+
+        if (!locationNorthChecked && !locationSouthChecked && !locationEastChecked &&
+            !locationWestChecked && !locationCentralChecked) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Please select at least one location.',
+            });
+            return false;
+        }
+        return true;
+    }
+</script>
+</body>
+</html>

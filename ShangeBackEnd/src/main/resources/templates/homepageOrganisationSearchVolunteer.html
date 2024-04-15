@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>SHANGE - Home</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f9e8e2;
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 16px;
+        }
+
+        .container {
+            text-align: center;
+            margin: 20px;
+        }
+
+        h2 {
+            color: #ffab73;
+        }
+
+        .top-buttons {
+            display: flex;
+            background-color: #ffab73;
+            padding: 10px;
+            justify-content: space-around;
+            width: 100%;
+        }
+
+        .top-buttons a {
+            color: white;
+            text-decoration: none;
+            font-size: 17px;
+        }
+
+        .search-bar {
+            margin-top: 20px;
+        }
+
+        form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            margin-right: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+            align-items: center;
+        }
+
+        input[type="submit"] {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #ffab73;
+            color: white;
+        }
+
+        .event-selection {
+            margin-top: 20px;
+        }
+
+        input[type="checkbox"] {
+            margin-right: 5px;
+        }
+
+        .containerBox {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+        }
+        .redirect-label {
+            color: #ffab73;
+            font-family: 'Roboto', sans-serif;
+            font-size: 26px;
+            margin-right: 10px;
+        }
+        .redirect-button {
+            background-color: #ffab73;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            color: white;
+            cursor: pointer;
+        }
+        .redirect-button:hover {
+            background-color: #ffa066;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="top-buttons">
+        <a href="/home">Home</a>
+        <a href="/login/googleCheck">My Calendar</a>
+        <a href="/create">Create Event</a>
+        <a href="/searchvolunteers">Search Volunteers</a>
+        <a href="/acceptvolunteers">Accept Volunteers</a>
+        <a href="/#">Chat</a>
+
+        <a href="/profile">Profile</a>
+        <a href="/logout">Logout</a>
+    </div>
+
+    <div class="container">
+        <h2>SHANGE</h2>
+        <h2><span data-th-text="${myType}"></span></h2>
+        <h2>Search Volunteers DataBase</h2>
+        
+        <h2><span data-th-text="${regeventName}"></span></h2>
+        <h2><span data-th-text="${regeventDate}"></span></h2>
+        <br />
+        <div th:if="${not #strings.isEmpty(sessionGoogleCalendar)}">
+            <a href="/login/googleCheck">
+                <span class="redirect-label">Login in to google calendar to start your calendar add in feature.:</span>
+                <button class="redirect-button">Click here</button>
+            </a>
+        </div>
+        <br />
+        <div class="search-bar">
+            <form action="/searchvolunteers" method="get">
+                <input type="text" name="query" placeholder="Search...">
+                <input type="submit" value="Search">
+            </form>
+        </div>
+
+        <br />
+        <div class="containerBox">
+            <div data-th-unless="${#lists.isEmpty(myVolunteerProfile)}">
+                <article data-th-each="n: ${myVolunteerProfile}">
+                    <br>
+
+                    <div>
+                        <!--img th:if="${not #strings.isEmpty(n.image)}"
+                            th:src="@{/Profile/{imageName}(imageName=${n.image})}" width="250px" alt="Image"-->
+                            
+                        <!-- <img th:if="${not #strings.isEmpty(base64Image)}" 
+                        th:src="'data:image/jpeg;base64,' + ${base64Image}" alt="Uploaded Image" width="250px"> -->
+                        <img th:if="${not #strings.isEmpty(n.image)}"
+                            th:src="${n.image}" width="250px" alt="Image">
+                    </div>
+                    <div>
+                        Name:<i data-th-text="${n.fullName}"></i>
+                    </div>
+                    <div>
+                        Skill:<i data-th-text="${n.skills}"></i>
+                    </div>
+                    <div>
+                        Availability:<i data-th-text="${n.availability}"></i>
+                    </div>
+                    <div>
+                        PastParticipation:<i data-th-text="${n.pastParticipation}"></i>
+                    </div>
+                    <a href="/#" class="btn btn-info">Chat</a>
+                    <br>
+                </article>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

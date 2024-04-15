@@ -1,0 +1,152 @@
+<!-- <p>sign-up-organisation works!</p> -->
+<div style="background-color: #f9e8e2">
+  <div class="container">
+    <h1>Volunteer</h1>
+    <br><br>
+    <h4>You have chosen to sign up as a new Volunteer:</h4>
+    <h6></h6>
+    <!-- <span data-th-text="${regeventName}" ></span> -->
+    <h6>New Volunteer Sign up:</h6>
+
+    <br />
+
+    <p>Today's date is: {{ todayDate | date:'longDate' }}</p>
+    <br />
+    <hr>
+    <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+
+      <div class="row mb-3">
+        <label for="userName" class="col-sm-2 col-form-label">Username</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="userName" formControlName="userName">
+          <ng-container *ngIf="userName.dirty || userName.touched">
+            <small class="text-danger" *ngIf="userName.getError('required')">Username is required</small>
+            <small class="text-danger" *ngIf="userName.getError('minlength')">Username has to be at least 5 characters
+              long</small>
+            <small class="text-danger" *ngIf="userName.getError('maxlength')">Username can not be longer than 20
+              characters</small>
+            <small class="text-success" *ngIf="usernameAvailable === true">Username is available!</small>
+            <small class="text-danger" *ngIf="usernameAvailable === false">Username is taken, please choose
+              another.</small>
+          </ng-container>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <label for="password" class="col-sm-2 col-form-label">Password</label>
+        <div class="col-sm-10">
+          <div class="input-group">
+            <button class="btn btn-outline-secondary" type="button" (click)="togglePasswordVisibility()">
+              <i class="bi" [ngClass]="{'bi-eye': !showPassword, 'bi-eye-slash': showPassword}"></i>
+            </button>
+            <input [type]="showPassword ? 'text' : 'password'" class="form-control" id="password"
+              formControlName="password">
+          </div>
+
+          <ng-container *ngIf="password.dirty || password.touched">
+            <small class="text-danger" *ngIf="password.getError('required')">Password is required</small>
+            <small class="text-danger" *ngIf="password.getError('minlength')">Password has to be at least 5 characters
+              long</small>
+            <small class="text-danger" *ngIf="password.getError('maxlength')">Password cannot be longer than 20
+              characters</small>
+          </ng-container>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <label for="fullName" class="col-sm-2 col-form-label">Full Name</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="fullName" formControlName="fullName">
+          <ng-container *ngIf="fullName.dirty || fullName.touched">
+            <small class="text-danger" *ngIf="fullName.getError('required')">Full Name is required</small>
+            <small class="text-danger" *ngIf="fullName.getError('minlength')">Full Name has to be at least 3 characters
+              long</small>
+            <small class="text-danger" *ngIf="fullName.getError('maxlength')">Full Name can not be longer than 20
+              characters</small>
+          </ng-container>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <label for="address" class="col-sm-2 col-form-label">Address</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="address" formControlName="address">
+          <ng-container *ngIf="address.dirty || address.touched">
+            <small class="text-danger" *ngIf="address.getError('required')">Address is required</small>
+            <small class="text-danger" *ngIf="address.getError('minlength')">Address has to be at least 5 characters
+              long</small>
+            <small class="text-danger" *ngIf="address.getError('maxlength')">Address can not be longer than 20
+              characters</small>
+          </ng-container>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <label for="dateOfBirth" class="col-sm-2 col-form-label">Date Of Birth</label>
+        <div class="col-sm-10">
+          <!-- <input type="date" class="form-control" id="dateOfBirth" formControlName="dateOfBirth"> -->
+          <div class="input-group">
+            <input class="form-control" placeholder="yyyy-mm-dd"
+                   name="dp" ngbDatepicker #d="ngbDatepicker" formControlName="dateOfBirth">
+            <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+                <i class="bi-calendar"></i>
+            </button>
+          </div>
+
+          <ng-container *ngIf="dateOfBirth.dirty || dateOfBirth.touched">
+            <small class="text-danger" *ngIf="dateOfBirth.getError('required')">Date of birth is required</small>
+            <small class="text-danger" *ngIf="dateOfBirth.getError('dateOfBirthInvalid')">Date of birth cannot be in the
+              future</small>
+          </ng-container>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <label for="gender" class="col-sm-2 col-form-label">Gender</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="gender" formControlName="gender">
+          <ng-container *ngIf="address.dirty || address.touched">
+            <small class="text-danger" *ngIf="address.getError('required')">Address is required</small>
+            <small class="text-danger" *ngIf="address.getError('minlength')">Address has to be at least 5 characters
+              long</small>
+            <small class="text-danger" *ngIf="address.getError('maxlength')">Address can not be longer than 20
+              characters</small>
+          </ng-container>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <label for="email" class="col-sm-2 col-form-label">Email</label>
+        <div class="col-sm-10">
+          <input type="email" class="form-control" id="email" formControlName="email">
+          <ng-container *ngIf="email.dirty || email.touched">
+            <small class="text-danger" *ngIf="email.getError('required')">Email is required</small>
+            <small class="text-danger" *ngIf="email.getError('email')">Invalid email format</small>
+          </ng-container>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <label for="phoneNo" class="col-sm-2 col-form-label">Phone Number</label>
+        <div class="col-sm-10">
+          <input type="tel" class="form-control" id="phoneNo" formControlName="phoneNo">
+          <ng-container *ngIf="phoneNo.dirty || phoneNo.touched">
+            <small class="text-danger" *ngIf="phoneNo.getError('required')">Phone number is required</small>
+            <small class="text-danger" *ngIf="phoneNo.getError('minlength')">Phone number must be at least 8 digits
+              long</small>
+            <small class="text-danger" *ngIf="phoneNo.getError('maxlength')">Phone number cannot exceed 8 digits</small>
+          </ng-container>
+        </div>
+      </div>
+
+      <div class="row mb-0">
+        <span class="col-sm-2 col-form-label"></span>
+        <div class="col-sm-10">
+          <button type="button" class="btn btn-secondary me-1" [routerLink]="['/Home']">Back</button>
+          <button type="submit" class="btn btn-primary" [disabled]="signUpForm.invalid">Register</button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>

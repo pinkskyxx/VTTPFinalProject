@@ -1,0 +1,53 @@
+<div style="background-color: #f9e8e2">
+  <div class="container">
+    <div class="mt-0 ml-10 mr-10 mb-0">
+      <br>
+      <br>
+      <br>
+      <form [formGroup]="searchForm" (ngSubmit)="search()">
+        <div class="row mb-3">
+          <label for="dateFrom" class="col-sm-2 col-form-label">From Date</label>
+          <div class="col-sm-10">
+            <div class="input-group">
+              <input class="form-control" placeholder="yyyy-mm-dd" name="dateFrom" ngbDatepicker #d1="ngbDatepicker"
+                formControlName="dateFrom">
+              <button class="btn btn-outline-secondary" (click)="d1.toggle()" type="button">
+                <i class="bi-calendar"></i>
+              </button>
+            </div>
+            <ng-container *ngIf="dateFrom?.dirty || dateFrom?.touched">
+              <small class="text-danger" *ngIf="dateFrom?.getError('required')">From Date is required</small>
+            </ng-container>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label for="dateTo" class="col-sm-2 col-form-label">To Date</label>
+          <div class="col-sm-10">
+            <div class="input-group">
+              <input class="form-control" placeholder="yyyy-mm-dd" name="dateTo" ngbDatepicker #d2="ngbDatepicker"
+                formControlName="dateTo">
+              <button class="btn btn-outline-secondary" (click)="d2.toggle()" type="button">
+                <i class="bi-calendar"></i>
+              </button>
+            </div>
+            <ng-container *ngIf="dateTo?.dirty || dateTo?.touched">
+              <small class="text-danger" *ngIf="dateTo?.getError('required')">To Date is required</small>
+            </ng-container>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-10 offset-sm-2">
+            <small class="text-danger" *ngIf="searchForm.hasError('dateToMoreThanDateFrom')">To Date cannot be less than From Date</small>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary" [disabled]="searchForm.invalid">Start Search on Date Request</button>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<hr>
+<app-event-alter-display></app-event-alter-display>

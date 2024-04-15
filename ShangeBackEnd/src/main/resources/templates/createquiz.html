@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Create Quiz</title>
+    <style>
+        body {
+            background-color: #f9e8e2;
+            margin-top: 0px;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 16px;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .top-buttons {
+            display: flex;
+            justify-content: space-around;
+            background-color: #ffab73;
+            padding: 10px;
+            width: 100%;
+        }
+
+        .top-buttons a {
+            color: white;
+            text-decoration: none;
+            font-size: 17px;
+        }
+
+        .container {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-buttons">
+        <a href="/home">Home</a>
+        <a href="/login/googleCheck">My Calendar</a>
+        <a href="/create">Create Event</a>
+        <a href="/searchvolunteers">Search Volunteers</a>
+        <a href="/acceptvolunteers">Accept Volunteers</a>
+        <a href="/#">Chat</a>
+
+        <a href="/profile">Profile</a>
+        <a href="/logout">Logout</a>
+    </div>
+<div class="container">
+    <h2 style="color: #ffab73;">Create Quiz</h2>
+
+    <form action="/create" method="get">
+        <div class="form-group">
+            <label for="quizTitle" style="color: #ffab73;">Quiz Title:</label>
+            <input type="text" class="form-control" id="quizTitle" name="quizTitle" required>
+        </div>
+
+        <div class="form-group">
+            <label for="question" style="color: #ffab73;">Question:</label>
+            <input type="text" class="form-control" id="question" name="question" required>
+        </div>
+
+        <div class="form-group">
+            <label for="option1" style="color: #ffab73;">Option 1:</label>
+            <input type="text" class="form-control" id="option1" name="option1" required>
+        </div>
+
+        <div class="form-group">
+            <label for="option2" style="color: #ffab73;">Option 2:</label>
+            <input type="text" class="form-control" id="option2" name="option2" required>
+        </div>
+
+        <div class="form-group">
+            <label for="option3" style="color: #ffab73;">Option 3:</label>
+            <input type="text" class="form-control" id="option3" name="option3" required>
+        </div>
+
+        <div class="form-group">
+            <label for="option4" style="color: #ffab73;">Option 4:</label>
+            <input type="text" class="form-control" id="option4" name="option4" required>
+        </div>
+
+        <div class="form-group">
+            <label for="correctOption" style="color: #ffab73;">Correct Option:</label>
+            <select class="form-control" id="correctOption" name="correctOption" required>
+                <option value="option1">Option 1</option>
+                <option value="option2">Option 2</option>
+                <option value="option3">Option 3</option>
+                <option value="option4">Option 4</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-success">Add Question</button>
+    </form>
+</div>
+
+</body>
+</html>

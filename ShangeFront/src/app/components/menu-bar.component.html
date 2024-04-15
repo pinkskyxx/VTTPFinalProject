@@ -1,0 +1,16 @@
+<nav class="navbar navbar-dark" style="background-color: #f8a673;">
+  <div class="container">
+
+    <a class="navbar-brand" routerLink="Home" [routerLinkActive]="'active'"
+      [routerLinkActiveOptions]="{exact: true}">Home</a>
+
+      <a class="navbar-brand" routerLink="RequestEvent" [routerLinkActive]="'active'"
+      [routerLinkActiveOptions]="{exact: true}">Request Event</a>
+
+      <a class="navbar-brand" routerLink="RequestAlter" [routerLinkActive]="'active'"
+      [routerLinkActiveOptions]="{exact: true}">Modify Event</a>
+
+    <!-- <a class="navbar-brand" href="https://shange.up.railway.app/login">Click to Register / Login</a> -->
+    <a class="navbar-brand" [href]="loginUrl">Click to Register / Login</a>
+  </div>
+</nav>

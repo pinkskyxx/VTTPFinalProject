@@ -1,0 +1,109 @@
+<div id="map" style="height: 600px;" ></div>
+<div>Latitude: {{display?.lat}}</div>
+<div>Longitude: {{display?.lng}}</div>
+<div style="background-color: #f9e8e2">
+
+  <div class="container">
+
+    <div class="ml-3 mr-3">
+      <h2>Event Request Entry</h2>
+
+      <form [formGroup]="dataForm" (ngSubmit)="onAdd()">
+
+        <div class="row mb-3">
+          <label for="address" class="col-sm-2 col-form-label">Address</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="address" formControlName="address">
+            <ng-container *ngIf="address.dirty || address.touched">
+              <small class="text-danger" *ngIf="address.getError('required')">Address is required</small>
+              <small class="text-danger" *ngIf="address.getError('minlength')">Address has to be at least 5 characters
+                long</small>
+              <small class="text-danger" *ngIf="address.getError('maxlength')">Address can not longer than 50
+                characters</small>
+            </ng-container>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label for="locX" class="col-sm-2 col-form-label">locX</label>
+          <div class="col-sm-10">
+            <input type="number" class="form-control" id="locX" formControlName="locX">
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label for="locY" class="col-sm-2 col-form-label">locY</label>
+          <div class="col-sm-10">
+            <input type="number" class="form-control" id="locY" formControlName="locY">
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label for="eventDate" class="col-sm-2 col-form-label">Event Date</label>
+          <div class="col-sm-10">
+            <div class="input-group">
+              <input class="form-control" placeholder="yyyy-mm-dd"
+                     name="dp" ngbDatepicker #d="ngbDatepicker" formControlName="eventDate" (dateSelect)="onDateSelect()">
+              <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+                  <i class="bi-calendar"></i>
+              </button>
+            </div>
+
+            <ng-container *ngIf="eventDate.invalid && (eventDate.dirty || eventDate.touched)">
+              <small class="text-danger" *ngIf="eventDate.getError('required')">Event Date is required</small>
+              <small class="text-danger" *ngIf="eventDate.getError('dateMoreThanToday')">Event Date cannot be in the Past</small>
+            </ng-container>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label for="password" class="col-sm-2 col-form-label">Password</label>
+          <div class="col-sm-10">
+            <div class="input-group">
+              <button class="btn btn-outline-secondary" type="button" (click)="togglePasswordVisibility()">
+                <i class="bi" [ngClass]="{'bi-eye': !showPassword, 'bi-eye-slash': showPassword}"></i>
+              </button>
+              <input [type]="showPassword ? 'text' : 'password'" class="form-control" id="password" formControlName="password">
+            </div>
+
+            <ng-container *ngIf="password.dirty || password.touched">
+              <small class="text-danger" *ngIf="password.getError('required')">Password is required</small>
+              <small class="text-danger" *ngIf="password.getError('minlength')">Password has to be at least 6 characters long</small>
+              <small class="text-danger" *ngIf="password.getError('maxlength')">Password cannot be longer than 6 characters</small>
+            </ng-container>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label for="title" class="col-sm-2 col-form-label">Title</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="title" formControlName="title">
+            <ng-container *ngIf="title.invalid && (title.dirty || title.touched)">
+              <small class="text-danger" *ngIf="title.getError('required')">Title is required</small>
+              <small class="text-danger" *ngIf="title.getError('minlength')">Title must be at least 8 characters long</small>
+              <small class="text-danger" *ngIf="title.getError('maxlength')">Title cannot be longer than 60 characters</small>
+            </ng-container>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label for="description" class="col-sm-2 col-form-label">Description</label>
+          <div class="col-sm-10">
+            <textarea class="form-control" id="description" formControlName="description"></textarea>
+            <ng-container *ngIf="description.invalid && (description.dirty || description.touched)">
+              <small class="text-danger" *ngIf="description.getError('required')">Description is required</small>
+              <small class="text-danger" *ngIf="description.getError('minlength')">Description must be at least 8 characters long</small>
+              <small class="text-danger" *ngIf="description.getError('maxlength')">Description cannot be longer than 250 characters</small>
+            </ng-container>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary"  [disabled]="dataForm.invalid">Add Request</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<hr>
+<app-event-request-display></app-event-request-display>
+

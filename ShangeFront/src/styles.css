@@ -1,0 +1,12 @@
+/* You can add global styles to this file, and also import other style files */
+/* #footer {
+  display: none;
+} */
+.site-footer
+{
+  background-color:#f9e8e2;
+  padding:100% 100%;
+  font-size:15px;
+  line-height:24px;
+  color:#737373;
+}

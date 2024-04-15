@@ -1,0 +1,52 @@
+<div style="background-color: #f9e8e2">
+  <div class="mt-0 ml-2 mr-1 mb-0">
+    <h2>Event Request Display</h2>
+
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Description</th>
+          <th>Address</th>
+          <th>Location X</th>
+          <th>Location Y</th>
+          <th>Event Date</th>
+          <th>Date Request</th>
+          <th>Request Status</th>
+          <th>Reply</th>
+          <th>Password</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of mapRequestModifyData; let i = index">
+          <td><textarea [(ngModel)]="data.title" class="form-control" style="width: 100%" rows="3"></textarea></td>
+          <td><textarea [(ngModel)]="data.description" class="form-control" style="width: 100%" rows="3"></textarea></td>
+          <td><textarea [(ngModel)]="data.address" class="form-control" style="width: 100%" rows="3"></textarea></td>
+          <td><input type="number" [(ngModel)]="data.locX" class="form-control" style="width: 100%"></td>
+          <td><input type="number" [(ngModel)]="data.locY" class="form-control" style="width: 100%"></td>
+          <td><input type="date" [value]="formatDate(data.eventDate)" (input)="updateEventDate($event, data)" class="form-control" style="width: 100%"></td>
+          <td>{{ data.requestDate | date: 'dd-MM-yyyy' }}</td>
+          <td>
+            <ng-container *ngIf="data.status; else pendingStatus">
+                Processed
+            </ng-container>
+            <ng-template #pendingStatus>
+                Pending
+            </ng-template>
+          </td>
+
+          <td><textarea [(ngModel)]="data.reply" class="form-control" style="width: 100%" rows="3" readonly></textarea></td>
+
+          <td><input type="password" [(ngModel)]="passwordInputs[i]" class="form-control" style="width: 100%"></td>
+          <td>
+            <div style="display: flex; gap: 10px;">
+              <button [disabled]="data.status" (click)="deleteData(data.id, data.password, passwordInputs[i],i)" class="btn btn-danger">Delete Request</button>
+              <button [disabled]="data.status" (click)="modifyData(data.id, data, data.password, passwordInputs[i])" class="btn btn-danger">Modify Request</button>
+          </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

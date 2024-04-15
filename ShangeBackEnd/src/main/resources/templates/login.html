@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>SHANGE - Login</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f9e8e2;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .login-container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+
+        h1 {
+            color: #ffab73;
+            font-size: 45px;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #333;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #ffab73;
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .slogan {
+            color: #666;
+            margin-top: 0px;
+            text-align: center;
+        }
+
+        label {
+            display: inline-block;
+            width: 80px;
+            text-align: right;
+            margin-right: 10px;
+        }
+
+        .password-container {
+            width: 100%;
+            position: relative;
+        }
+
+        .password-container input[type="password"],
+        .password-container input[type="text"] {
+            width: 100%;
+            padding: 12px 36px 12px 12px;
+            box-sizing: border-box;
+        }
+
+        .fa-eye {
+            position: absolute;
+            top: 28%;
+            right: 4%;
+            cursor: pointer;
+            color: lightgray;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="login-container">
+        <h1>SHANGE</h1>
+        <h2>Where fun and impactful volunteering begins</h2>
+
+        <!-- Login Form -->
+        <form method="POST" th:action="@{/login}">
+            <input type="text" id="usernameInput" name="username" placeholder="Username..." required autofocus>
+
+            <div class="password-container">
+                <input type="password" id="password" name="password" placeholder="Password..." required />
+                <i class="fa-solid fa-eye" id="eye"></i>
+            </div>
+            <button type="submit">Login</button>
+
+        </form>
+        <br>
+        <p class="slogan">Volunteer to make a difference today!</p>
+        <!-- <span class="nav-item"><a class="nav-link"
+                href="https://shangevolunteering-production.up.railway.app/register/volunteer"
+                style="text-decoration: underline; text-align: center;">Click here to sign up as a new Volunteer</a>
+        </span>
+        <span class="nav-item"><a class="nav-link"
+                href="https://shangevolunteering-production.up.railway.app/register/organisation"
+                style="text-decoration: underline; text-align: center;">Click here to sign up as new Volunteering
+                Organisation</a>
+        </span> -->
+        <!-- <span class="nav-item"><a class="nav-link"
+            href="https://shange.vercel.app/SignUpVolunteer"
+            style="text-decoration: underline; text-align: center;">Click here to sign up as a new Volunteer</a>
+        </span>
+        <span class="nav-item"><a class="nav-link"
+                href="https://shange.vercel.app/SignUpOrganisation"
+                style="text-decoration: underline; text-align: center;">Click here to sign up as new Volunteering
+                Organisation</a>
+        </span> -->
+        <span class="nav-item"><a class="nav-link"
+            th:href="@{${signUpVolunteerUrl}}"
+            style="text-decoration: underline; text-align: center;">Click here to sign up as a new Volunteer</a>
+        </span>
+        <span class="nav-item"><a class="nav-link"
+            th:href="@{${signUpOrganisationUrl}}"
+                style="text-decoration: underline; text-align: center;">Click here to sign up as new Volunteering
+                Organisation</a>
+        </span>
+
+    </div>
+    <script>
+        const passwordInput = document.querySelector("#password")
+        const eye = document.querySelector("#eye")
+
+        eye.addEventListener("click", function () {
+            this.classList.toggle("fa-eye-slash")
+            const type = passwordInput.getAttribute("type") === "password" ? "text" : "password"
+            passwordInput.setAttribute("type", type)
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,103 @@
+<div style="background-color: #f9e8e2">
+  <div class="container" >
+    <h2>SHANGE</h2>
+
+    <div class="search-bar">
+      <form action="/search" method="get">
+        <input type="text" name="query" placeholder="Search Event..." style="margin-right: 10px;" >
+        <button (click)="OnSearch()" class="btn btn-outline-success my-2 my-sm-0">Search</button>
+      </form>
+    </div>
+
+    <br>
+    <br>
+    <div class="row">
+      <div class="col-lg-3">
+        <div class="input-group">
+          <span class="input-group-addon">
+            <label style="margin-right: 10px;">Location:</label>
+          </span>
+          <select>
+            <option value="North">North</option>
+            <option value="South">South</option>
+            <option value="East">East</option>
+            <option value="West">West</option>
+            <option value="Central">Central</option>
+          </select>
+        </div>
+
+      </div>
+      <div class="col-lg-3">
+        <div class="input-group">
+          <span class="input-group-addon">
+            <label style="margin-right: 10px;">Date:</label>
+          </span>
+          <input type="date">
+        </div>
+      </div>
+
+      <div class="col-lg-3">
+        <div class="input-group">
+          <span class="input-group-addon">
+            <label style="margin-right: 10px;">Type:</label>
+
+          </span>
+          <select>
+            <option value="OneTime">One-time Event</option>
+            <option value="Recurring">Recurring Event</option>
+          </select>
+        </div>
+
+      </div>
+
+
+      <div class="col-lg-3">
+        <div class="input-group">
+          <span class="input-group-addon">
+            <label style="margin-right: 10px;">Mode:</label>
+
+          </span>
+          <select>
+            <option value="Physical">Physical</option>
+            <option value="Online">Online</option>
+          </select>
+        </div>
+
+      </div>
+
+
+    </div>
+
+    <br>
+    <br>
+    <div class="containerBox">
+      <div *ngFor="let event of myEventDetails">
+        <hr>
+        <h2>Title: {{ event.strTitle }}</h2>
+        <p>Event Type: {{ event.strEventtype }}</p>
+        <p>Description: {{ event.strDescription }}</p>
+        <p>Physical: {{ event.strPhysical }}</p>
+        <p>Online: {{ event.strOnline }}</p>
+        <p>Location: {{ event.strNorth }}, {{ event.strSouth }}, {{ event.strEast }}, {{ event.strWest }}, {{ event.strCentral }}</p>
+        <p>Sample Food: {{ event.strSampleFood }}</p>
+        <img *ngIf="event.strSampleFoodSite1" [src]="event.strSampleFoodSite1" alt="Sample Food Site 1" width="150px" style="margin-right: 10px;">
+        <img *ngIf="event.strSampleFoodSite2" [src]="event.strSampleFoodSite2" alt="Sample Food Site 2" width="150px">
+        <p>Event From: {{ event.strEventFrom }}</p>
+        <p>Event To: {{ event.strEventTo }}</p>
+        <p>Time From: {{ event.strTimeFrom }}</p>
+        <p>Time To: {{ event.strTimeTo }}</p>
+        <p>Volunteers Registered: {{ event.strVolunteer }}</p>
+        <div *ngIf="event.strImage">
+          <p>Image Uploaded:</p>
+          <img [src]="event.strImage" width="250px" alt="Event Image">
+        </div>
+        <div *ngIf="event.strFile">
+          <p>Event File:</p>
+          <a [href]="event.strFile" download>{{ event.strFile }}</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+

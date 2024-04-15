@@ -1,0 +1,44 @@
+<div style="background-color: #f9e8e2">
+  <div class="container">
+    <div class="mt-0 ml-5 mr-5 mb-0">
+      <h2>Event Request Display</h2>
+
+      <button class="btn btn-primary mb-3" [disabled]="submittingToBackend" (click)="submitStateToBackend()">Submit Request</button>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Address</th>
+            <th>Location X</th>
+            <th>Location Y</th>
+            <th>Event Date</th>
+            <th>Date Request</th>
+            <th>ID</th>
+            <th>Request Status</th>
+
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of stateService.data$ | async">
+            <td>{{ data.title }}</td>
+            <td>{{ data.description }}</td>
+            <td>{{ data.address }}</td>
+            <td>{{ data.locX }}</td>
+            <td>{{ data.locY }}</td>
+            <td>{{ data.eventDate| date: 'dd-MM-yyyy'}}</td>
+            <td>{{ data.requestDate| date: 'dd-MM-yyyy'}}</td>
+            <td>{{ data.myid }}</td>
+            <td>{{ data.status }}</td>
+
+            <td><button (click)="stateService.deleteData(data.myid)" class="btn btn-danger">Delete</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+
