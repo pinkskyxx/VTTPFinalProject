@@ -1,6 +1,10 @@
 # **SHANGE**
 
-SHANGE is a comprehensive event management web application that enables users to search, filter, and interact with events based on various criteria such as location, type, and mode. It is built using modern web technologies and follows best practices to ensure a seamless and secure user experience.
+SHANGE is a comprehensive Volunteer event management web application that enables
+1. Organisations to create vollunteering events and find suitable volunteers
+2. Users to search, filter, match, and interact with events based on various criteria such as location, type, and mode.
+
+It is built using modern web technologies and follows best practices to ensure a seamless and secure user experience.
 
 ## **Table of Contents**
 - [Project Overview](#project-overview)
@@ -36,6 +40,15 @@ SHANGE provides users with a platform to discover events that match their intere
 - **Build Tool**: Maven
 - **Database**: Configured for MongoDB and MySQL
 - **Deployment**: Docker, Railway
+
+Key Features:
+
+API Management: The backend likely exposes various APIs that the frontend consumes to retrieve and manage event data.
+Security: Spring Security is implemented to secure the application, including handling CORS (Cross-Origin Resource Sharing) configurations.
+Database Connectivity: The backend is configured to connect to databases, possibly using MongoDB and MySQL, based on the environment variables like SPRING_DATASOOURCE_URL.
+Build Process:
+
+The backend project is structured with a multi-stage Docker build process. The first stage builds the Angular frontend, and the second stage builds the Spring Boot backend, finally combining them into a deployable Docker image.
 
 ## **Installation and Setup**
 
