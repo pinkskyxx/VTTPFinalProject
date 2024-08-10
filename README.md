@@ -10,8 +10,6 @@ SHANGE is a comprehensive event management web application that enables users to
 - [Usage](#usage)
 - [Deployment](#deployment)
 - [Known Issues](#known-issues)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## **Project Overview**
 
@@ -97,14 +95,3 @@ SHANGE is designed to be easily deployable using Docker. The multi-stage Dockerf
 - **CORS Issues**: There may be issues related to CORS configuration, especially when deploying to production environments. Ensure that the backend is properly configured to handle cross-origin requests.
 - **Mixed Content**: Ensure that all resources are loaded over HTTPS to avoid mixed content errors.
 
-## **Contributing**
-
-Contributions are welcome! Please fork this repository and submit a pull request for any enhancements, bug fixes, or other improvements.
-
-## **License**
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
-This README provides a comprehensive overview of SHANGE, covering key aspects such as features, technology stack, setup instructions, and deployment details. Adjust the repository URLs and any other specifics as needed before placing it in your GitHub repository.
