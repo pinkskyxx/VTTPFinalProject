@@ -1,8 +1,8 @@
 # **SHANGE**
 
-SHANGE is a comprehensive Volunteer event management web application that enables
+SHANGE is a comprehensive Volunteer event management web application that enables:
 1. Organisations to create vollunteering events and find suitable volunteers
-2. Users to search, filter, match, and interact with events based on various criteria such as location, type, and mode.
+2. Volunteers to search, filter, match, and interact with events/organisations/other volunteers based on various criteria such as location, type, and mode.
 
 It is built using modern web technologies and follows best practices to ensure a seamless and secure user experience.
 
@@ -17,7 +17,7 @@ It is built using modern web technologies and follows best practices to ensure a
 
 ## **Project Overview**
 
-SHANGE provides users with a platform to discover events that match their interests and preferences. The application allows for robust searching and filtering of events, helping users to find exactly what they’re looking for with ease. The backend is built with Spring Boot, while the frontend is developed using Angular, resulting in a full-stack solution that is both powerful and user-friendly.
+SHANGE provides organisations and users with a platform to organise and discover events that match their interests and preferences. The application allows for robust searching and filtering of volunteering events and volunteers, helping users to find exactly what they’re looking for with ease. The backend is built with Spring Boot, while the frontend is developed using Angular, resulting in a full-stack solution that is both powerful and user-friendly.
 
 ## **Features**
 
